@@ -35,6 +35,14 @@ class BookRepository implements iBookRepository{
         ],200);
     }
 
+    public function getCategoryId($id_buku){
+        $data = Book::where('id_buku', $id_buku);
+
+        return response()->json([
+            "data" => $data
+        ]);
+    }
+
     public function DetailById($id){
         $book = Book::Find($id);
 

@@ -26,6 +26,14 @@ class BookController extends Controller
         ]);
     }
 
+    public function getIdCat($id_buku){
+        $data = $this->bookRepo->getCategoryId($id_buku);
+
+        return response()->json([
+            "data" => $data
+        ]);
+    }
+
     public function getbyCat($id)
     {
 
