@@ -39,7 +39,9 @@ $router->group(['namespace' => 'V1', 'prefix' => 'books'], function() use($route
     $router->post('/input', 'BookController@input');
     $router->put('update/{id}', 'BookController@update');
     $router->delete('/del/{id}', 'BookController@deleteData');
-    $router->get('getIdCat/{id_buku}', 'BookController@getIdCat');
+     $router->put('/borrow/{id}', 'BookController@borrow');
+     $router->put('/back/{id}', 'BookController@back');
+
 });
 
 $router->group(['namespace' => 'V1', 'prefix' => 'user'], function() use($router){
@@ -48,6 +50,8 @@ $router->group(['namespace' => 'V1', 'prefix' => 'user'], function() use($router
     $router->put('/up/{id}', 'UserController@update');
     $router->delete('/del/{id}', 'UserController@delete');
     $router->post('/login', 'UserController@login');
+    $router->delete('/logout', 'userController@logout');
+
 });
 
 

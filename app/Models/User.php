@@ -20,6 +20,12 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
      *
      * @var array
      */
+
+     public function books()
+     {
+          return $this->hasMany('App\Models\Book');
+     }
+
     protected $fillable = [
         'name',
         'email',

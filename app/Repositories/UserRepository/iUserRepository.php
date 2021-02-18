@@ -7,4 +7,5 @@ interface iUserRepository{
     public function updateUser($id, $request);
     public function deleteUser($id);
     public function logIn($request);
+    public function logOut();
 }

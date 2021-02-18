@@ -14,6 +14,7 @@ class CategoryController extends Controller
     public function __construct(iCategoryRepository $categoryRepo)
     {
         $this->categoryRepo = $categoryRepo;
+        $this->middleware('auth');
     }
 
     public function index(Request $request)

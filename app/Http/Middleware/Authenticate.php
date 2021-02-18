@@ -39,6 +39,11 @@ class Authenticate
             return response('Unauthorized.', 401);
         }
 
+        $role = auth()->user()->role;
+        if ($role != "Admin") {
+            # code...
+            return response('Unauthorized.', 401);
+        }
         return $next($request);
     }
 }

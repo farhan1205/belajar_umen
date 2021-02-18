@@ -19,6 +19,7 @@ class UserRepository implements iUserRepository
         $user->nama = $request->nama;
         $user->username = $request->username;
         $user->email = $request->email;
+        $user->role = $request->role;
 
         $confirm = $request->confirm;
         $pass = $request->password;
@@ -42,6 +43,7 @@ class UserRepository implements iUserRepository
         $data->nama = $request->nama;
         $data->username = $request->username;
         $data->email = $request->email;
+        $data->role = $request->role;
 
         $pass = $request->password;
         $data->password = app('hash')->make($pass);
@@ -78,6 +80,14 @@ class UserRepository implements iUserRepository
             "message" => "Anda Berhasil Login",
             "Token" => $code
         ]);
+    }
+
+    public function logOut()
+    {
+        $token = JWTAuth::getToken();
+        if ($token) {
+            JWTAuth::setToken($token)->invalidate();
+        }
     }
 
 

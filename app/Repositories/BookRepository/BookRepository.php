@@ -35,13 +35,7 @@ class BookRepository implements iBookRepository{
         ],200);
     }
 
-    public function getCategoryId($id_buku){
-        $data = Book::where('id_buku', $id_buku);
 
-        return response()->json([
-            "data" => $data
-        ]);
-    }
 
     public function DetailById($id){
         $book = Book::Find($id);
@@ -94,5 +88,57 @@ class BookRepository implements iBookRepository{
             "data" => $book->id,
             "message" => "Berhasil dihapus"
         ]);
+    }
+
+    public function borrowBook($id, $request)
+    {
+
+        $book = Book::find($id);
+
+        if ($book->id_user == null) {
+            $book->id_user = $request->id_user;
+            $book->save();
+
+            $status = true;
+            return response()->json([
+                "book" => $book->name,
+                "message" => "Meminjam Buku Berhasil",
+                "status" => $status
+            ]);
+        }else{
+            $status = false;
+            return response()->json([
+                "book" => $book->name,
+                "message" => "Buku Sedang Dipinjam",
+                "status" => $status
+            ]);
+        }
+
+    }
+
+    public function backBook($id, $request)
+    {
+        $book = Book::find($id);
+
+        $dataID = $book->id;
+        $dataUser = $book->id_user;
+        $requestID = $request->id;
+        $requestUser = $request->id_user;
+
+        if ($dataID == $requestID && $dataUser == $requestUser) {
+            $book->id_user = null;
+            $book->save();
+            return response()->json([
+                "Buku" => $book->name,
+                "message" => "Buku dikembalikan",
+                "status" => true
+            ]);
+        }else{
+            return response()->json([
+                "Buku" => $book->name,
+                "message" => "Buku",
+                "status" => false
+            ]);
+        }
     }
 }

@@ -14,6 +14,7 @@ class UserController extends Controller
     public function __construct(iUserRepository $userRepo)
     {
         $this->userRepo = $userRepo;
+
     }
 
     public function regist(Request $request)
@@ -51,19 +52,16 @@ class UserController extends Controller
         return response()->json([
             "data" => $user
         ]);
-        // $user = $request->only(['email', 'password']);
-
-        // if (!$token = Auth::attempt($user)) {
-        //     return response()->json(['message' => 'Unauthorized'], 401);
-        // }
-
-        // $code = $this->respondWithToken($token);
-        // return response()->json([
-        //     "message" => "Anda Berhasil Login",
-        //     "Token" => $code
-        // ]);
 
 
+    }
+
+    public function logout(){
+        $user = $this->userRepo->logOut();
+
+        return response()->json([
+            "message" => "Token has Been Deleted"
+        ]);
     }
 
 

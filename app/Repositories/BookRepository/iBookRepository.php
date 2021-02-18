@@ -12,6 +12,8 @@ interface iBookRepository
     public function createBook($request);
     public function UpdateBook($id, $request);
     public function deleteBook($id);
-    public function getCategoryId($id_buku);
+    public function borrowBook($id, $request);
+    public function backBook($id, $request);
+
 
 }

@@ -21,4 +21,9 @@ class Book extends Model
     {
         return $this->BelongsTo('App/Models/Category');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 }

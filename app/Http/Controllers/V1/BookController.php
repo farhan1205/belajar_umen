@@ -14,6 +14,7 @@ class BookController extends Controller
     public function __construct(iBookRepository $bookRepo)
     {
         $this->bookRepo = $bookRepo;
+        $this->middleware('auth', ['except' =>  ['index', 'getbyCat', 'getById']]);
     }
 
     public function index()
@@ -26,13 +27,6 @@ class BookController extends Controller
         ]);
     }
 
-    public function getIdCat($id_buku){
-        $data = $this->bookRepo->getCategoryId($id_buku);
-
-        return response()->json([
-            "data" => $data
-        ]);
-    }
 
     public function getbyCat($id)
     {
@@ -77,5 +71,23 @@ class BookController extends Controller
     public function deleteData($id)
     {
         $data = $this->bookRepo->deleteBook($id);
+    }
+
+    public function borrow($id, Request $request)
+    {
+        $data = $this->bookRepo->borrowBook($id,$request);
+
+        return response()->json([
+            "data" => $data
+        ]);
+    }
+
+    public function back($id, Request $request)
+    {
+        $data = $this->bookRepo->backBook($id, $request);
+
+        return response()->json([
+            "data" => $data
+        ]);
     }
 }
